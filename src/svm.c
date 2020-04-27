@@ -17,9 +17,9 @@ float svm_rbf(float *input, const float *sv){
  * Prediz a classe (1 ou -1) de uma entrada com base nos vetores de suporte do treinamento
  */
 int8_t svm_predictor(float *input){
-    float sum = 0;
+    float sum = svm_model.bias;
     for(uint16_t i=0 ; i<SVM_NSV ; i++){
-        sum += svm_trained_model[i].alpha_label * svm_rbf(input, svm_trained_model[i].support_vector) + svm_trained_model[i].bias;
+        sum += svm_model.svs[i].alpha_label * svm_rbf(input, svm_model.svs[i].support_vector);
     }
     return sum >= 0 ? 1 : -1;
 }
